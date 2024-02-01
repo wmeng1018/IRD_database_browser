@@ -3,5 +3,5 @@ This genome browser was developed utilizing template of exac browser under https
 
 database schema
 <p align="center">
-<img height="350" src="static/images/schema.png">
+<img height="450" src="static/images/schema.png">
 </p>
