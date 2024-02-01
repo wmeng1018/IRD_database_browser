@@ -1,0 +1,118 @@
+<head>
+    <title>Inherited Retina Disease Genetic Variant Database</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="static/images/icon.png" type="image/x-icon">
+    <link rel="icon" href="static/images/icon.png" type="image/x-icon">
+    <link rel=stylesheet type=text/css href="static/typeaheadjs.css">
+    <link rel=stylesheet type=text/css href="static/css/font-awesome.min.css">
+    <script type="text/javascript" src="static/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="static/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/typeahead.bundle.min.js"></script>
+
+    <script type="text/javascript" src="static/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="static/jquery.tablesorter.pager.js"></script>
+    <link rel=stylesheet type=text/css href="static/theme.default.css">
+    <script type="text/javascript" src="static/underscore-min.js"></script>
+
+    <link rel=stylesheet type=text/css href="static/bootstrap.min.css">
+    <link rel=stylesheet type=text/css href="static/style.css">
+    <script type="text/javascript" src="static/d3.v3.min.js"></script>
+    <script type="text/javascript" src="static/index.js"></script>
+    <script type="text/javascript" src="static/exac.js"></script>
+    <script type="text/javascript">
+        release_number = 1.0;
+        $(document).ready(function() {
+            $('.number_samples').html(Number(number_of_samples).toLocaleString('en'));
+            $('.number_samples_full').html(Number(number_of_samples_full).toLocaleString('en'));
+            $('.release_number').html(Number(release_number).toLocaleString('en'));
+        });
+        $(function() {
+            var bestPictures = new Bloodhound({
+              datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              remote: '/autocomplete/%QUERY'
+            });
+
+            bestPictures.initialize();
+
+            $('.awesomebar').typeahead(
+                {
+                    autoselect: true,
+                },
+                {
+                    name: 'best-pictures',
+                    displayKey: 'value',
+                    source: bestPictures.ttAdapter(),
+                }
+            );
+            $('.awesomebar').bind('typeahead:selected', function(obj, datum) {
+                window.location.href = '/awesome?query=' + datum.value;
+            });
+        });
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation" style="background: #103173;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            
+            <div class="col-xs-5" id="navbar_form_container">
+                <form action="/awesome" class="navbar-form" role="search">
+                    <div class="form-group" id="navbar-awesomebar">
+                        <input type="submit" style="display: none;"/>
+                        <input id="navbar-searchbox-input" name="query" class="form-control awesomebar" type="text" placeholder="Gene, transcript, variant, or region"/>
+                        <input type="submit" style="position: absolute; left: -9999px"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</nav>
+
+    <script>
+        $('#navbar_form_container').hide();
+    </script>
+    <div class="container">
+        <h1 id="home-title">Inherited Retina Disease Genetic Variant Database</h1>
+
+<p> Enter Confirmation Code Sent To Your Email ID</p>
+<form action="enterconfirmationcode.php" method="post">
+  <div class="container">
+    <label for="uname"><b>Code</b></label>&nbsp; 
+    <input type="text" placeholder="Enter code" name="code" required>&nbsp;&nbsp;&nbsp;&nbsp;  
+    <button type="submit">Verify</button>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <span class="psw"><a href="reg.html">Create an account</a></span>&nbsp;&nbsp;&nbsp;&nbsp; 
+    <span class="psw"><a href="index.html">Back to login</a></span>
+  </div>
+</form>
+
+
+
+        <div class="row" style="font-size: 16px;">
+            <div class="col-md-12">
+                <h3 align="center"> <a href="about.html" style="color: black;">About Database</a></h3>
+                <div>
+                    <p>
+		        Genetics plays important role in human visual disorders that affect more than 30 million people in the United States alone. The <a href="https://rchenlab.github.io/">Chen lab</a> aims at characterizing the genetic factors underlying the neural degenerative diseases in the human visual system, including both the inherited to age related retinal degenerative diseases. A combination of next generation sequencing, single cell omics, patient derived iPSC and retinal organoid, mice and non human primate models, and machine learning and deep learning technologies are used.
+                    </p>
+		    <p>
+                       Inherited retinal degenerations (IRDs) are a collection of severe retina diseases following Mendelian inheritance model. Collectively, about 1 in 2000 people is affected by IRD. Over the last decade, our group has recruited over 7,000 patients with IRDs across the world. A combination of next generation sequencing (NGS) based panel, whole exome, and whole genome sequencing has been conducted. These efforts have led to accurate molecular diagnosis of about 85% of the patients, resulting in the discovered of 15 new IRD associated genes. Continued investigation of underlying genetics of the remaining 1,000 unsolved IRD patients provides excellent opportunities for novel disease gene and mutation discovery.
+                    </p>
+		    <p>
+                    </p>
+                </div>
+            </div>
+        </div>
+  </div>
+    
+</body>

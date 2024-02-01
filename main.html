@@ -1,0 +1,150 @@
+<head>
+    <title>Inherited Retina Disease Genetic Variant Database</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="static/images/icon.png" type="image/x-icon">
+    <link rel="icon" href="static/images/icon.png" type="image/x-icon">
+    <link rel=stylesheet type=text/css href="static/typeaheadjs.css">
+    <link rel=stylesheet type=text/css href="static/css/font-awesome.min.css">
+    <script type="text/javascript" src="static/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="static/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/typeahead.bundle.min.js"></script>
+
+    <script type="text/javascript" src="static/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="static/jquery.tablesorter.pager.js"></script>
+    <link rel=stylesheet type=text/css href="static/theme.default.css">
+    <script type="text/javascript" src="static/underscore-min.js"></script>
+
+    <link rel=stylesheet type=text/css href="static/bootstrap.min.css">
+    <link rel=stylesheet type=text/css href="static/style.css">
+    <script type="text/javascript" src="static/d3.v3.min.js"></script>
+    <script type="text/javascript" src="static/index.js"></script>
+    <script type="text/javascript" src="static/exac.js"></script>
+    <script type="text/javascript">
+        release_number = 1.0;
+        $(document).ready(function() {
+            $('.number_samples').html(Number(number_of_samples).toLocaleString('en'));
+            $('.number_samples_full').html(Number(number_of_samples_full).toLocaleString('en'));
+            $('.release_number').html(Number(release_number).toLocaleString('en'));
+        });
+        $(function() {
+            var bestPictures = new Bloodhound({
+              datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              remote: '/autocomplete/%QUERY'
+            });
+
+            bestPictures.initialize();
+
+            $('.awesomebar').typeahead(
+                {
+                    autoselect: true,
+                },
+                {
+                    name: 'best-pictures',
+                    displayKey: 'value',
+                    source: bestPictures.ttAdapter(),
+                }
+            );
+            $('.awesomebar').bind('typeahead:selected', function(obj, datum) {
+                window.location.href = '/awesome?query=' + datum.value;
+            });
+        });
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation" style="background: #103173;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="navbar-brand" href="main.html" style="color: white; font-weight: bold; float: left; font-size: 15px;">Inherited Retina Disease Genetic Variant Database</a>
+            
+            <div class="col-xs-5" id="navbar_form_container">
+                <form action="/awesome" class="navbar-form" role="search">
+                    <div class="form-group" id="navbar-awesomebar">
+                        <input type="submit" style="display: none;"/>
+                        <input id="navbar-searchbox-input" name="query" class="form-control awesomebar" type="text" placeholder="Gene, transcript, variant, or region"/>
+                        <input type="submit" style="position: absolute; left: -9999px"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+<!--        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="about.html" style="color: white; font-weight: bold;">About</a></li>
+                <li><a href="downloads.html" style="color: white; font-weight: bold;">Downloads</a></li>
+                <li><a href="terms.html" style="color: white; font-weight: bold;">Terms</a></li>
+                <li><a href="contact.html" style="color: white; font-weight: bold;">Contact</a></li>
+                <li><a href="faq.html" style="color: white; font-weight: bold;">FAQ</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+	-->    </div><!-- /.container-fluid -->
+</nav>
+
+    <script>
+        $('#navbar_form_container').hide();
+    </script>
+    <div class="container">
+        <h1 id="home-title">Inherited Retina Disease Genetic Variant Database</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="home-searchbox">
+                    <form action="gene.php">
+                        <input type="submit" style="display: none;"/>
+                        <input id="home-searchbox-input" name="query" class="form-control input-lg awesomebar" type="text" placeholder="Search for a gene by gene name or Ensembl ID"/>
+                        <input type="submit" style="position: absolute; left: -9999px"/>
+                    </form>
+                    <p class="text-muted">
+                        Examples - Gene: <a href="gene.php?query=RPGR">RPGR</a>,
+                        Ensembl ID: <a href="gene.php?query=ENSG00000156313">ENSG00000156313</a>
+<!--                        Region: <a href="/region/22-46615715-46615880">22:46615715-46615880</a>
+-->                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="home-searchbox">
+                    <form action="variant.php">
+                        <input type="submit" style="display: none;"/>
+                        <input id="home-searchbox-input" name="query" class="form-control input-lg awesomebar" type="text" placeholder="Search for a variant by genomic coordinate or HGVS consequence"/>
+                        <input type="submit" style="position: absolute; left: -9999px"/>
+                    </form>
+                    <p class="text-muted">
+                        Examples - Genomic Coordinates: <a href="variant.php?query=X:38182174:C:A">X:38182174:C:A</a>
+			HGVS Consequence: <a href="variant.php?query=NP_000319.1:p.Gly60Val">NP_000319.1:p.Gly60Val</a>
+			 or <a href="variant.php?query=NM_000328.3:c.179G>T">NM_000328.3:c.179G>T</a>
+<!--                        Region: <a href="/region/22-46615715-46615880">22:46615715-46615880</a>
+-->                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+
+        <div class="row" style="font-size: 16px;">
+            <div class="col-md-12">
+                <h3 align="center"> <a href="about.html" style="color: black;">About Database</a></h3>
+                <div>
+                    <p>
+		        Genetics plays important role in human visual disorders that affect more than 30 million people in the United States alone. The <a href="https://rchenlab.github.io/">Chen lab</a> aims at characterizing the genetic factors underlying the neural degenerative diseases in the human visual system, including both the inherited to age related retinal degenerative diseases. A combination of next generation sequencing, single cell omics, patient derived iPSC and retinal organoid, mice and non human primate models, and machine learning and deep learning technologies are used.
+                    </p>
+		    <p>
+                       Inherited retinal degenerations (IRDs) are a collection of severe retina diseases following Mendelian inheritance model. Collectively, about 1 in 2000 people is affected by IRD. Over the last decade, our group has recruited over 7,000 patients with IRDs across the world. A combination of next generation sequencing (NGS) based panel, whole exome, and whole genome sequencing has been conducted. These efforts have led to accurate molecular diagnosis of about 85% of the patients, resulting in the discovered of 15 new IRD associated genes. Continued investigation of underlying genetics of the remaining 1,000 unsolved IRD patients provides excellent opportunities for novel disease gene and mutation discovery.
+                    </p>
+		    <p>
+                    </p>
+                </div>
+            </div>
+        </div>
+  </div>
+    
+</body>
